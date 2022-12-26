@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>终于定制出顺手的Obsidian斜杠命令</title>
+      <link href="/2022/12/26/%E7%BB%88%E4%BA%8E%E5%AE%9A%E5%88%B6%E5%87%BA%E9%A1%BA%E6%89%8B%E7%9A%84Obsidian%E6%96%9C%E6%9D%A0%E5%91%BD%E4%BB%A4/"/>
+      <url>/2022/12/26/%E7%BB%88%E4%BA%8E%E5%AE%9A%E5%88%B6%E5%87%BA%E9%A1%BA%E6%89%8B%E7%9A%84Obsidian%E6%96%9C%E6%9D%A0%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<p>wolai、语雀、思源笔记等笔记软件，有一个特别好用的功能，通过斜杠打开快速输入面板，让我们快速输入 markdown、插入图片外链、插入文件、插入 iframe 等，十分方便。</p><p>但当我使用 obsidian 发现，它竟然默认不支持这个。需要你手动去配置核心插件和安装第三方插件你来达到你想要的要求。</p><p>这里记录一下笔者探索的过程。</p><blockquote><p>下文以 ob 代替 obsidian</p></blockquote><h2 id="斜杠命令-命令面板"><a href="#斜杠命令-命令面板" class="headerlink" title="斜杠命令 + 命令面板"></a>斜杠命令 + 命令面板</h2><h4 id="开启斜杠命令"><a href="#开启斜杠命令" class="headerlink" title="开启斜杠命令"></a>开启斜杠命令</h4><p>ob 有一个核心插件斜杠命令，在设置中开启（默认是关闭）：<br><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226151930915-48817265.png" alt="image"></p><p>这时候你就能在文件中输入<code>/</code>，就会出现如下面板：<br><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152012826-349426145.gif" alt="image"></p><p>虽然斜杠命令是生效了，<strong>可是问题来了：显示的选项并不是你想要的，你只能通过输入来筛选出你希望的选项</strong>。</p><h4 id="命令面板置顶"><a href="#命令面板置顶" class="headerlink" title="命令面板置顶"></a>命令面板置顶</h4><p>我们还可以利用另外一个<strong>核心插件命令面板，利用其置顶功能，将斜杠选项固定下来</strong>。</p><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152038340-734163467.gif" alt="image"></p><h4 id="两者结合效果"><a href="#两者结合效果" class="headerlink" title="两者结合效果"></a>两者结合效果</h4><p>最后的结合的效果，已经初具雏形：</p><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152109622-81103791.png" alt="image"></p><p>但再 🤔 思考一下，还是存在问题: <strong>markdown 语法的命令实在有点少，比如 table、代码块等，这些命令面板本身是找不到的，置顶不了，而且这么多命令一个个置顶再排序也很麻烦</strong></p><h2 id="拥有更好的-Markdown-助手"><a href="#拥有更好的-Markdown-助手" class="headerlink" title="拥有更好的 Markdown 助手"></a>拥有更好的 Markdown 助手</h2><blockquote><p>这里假设你掌握了自行<strong>安装第三方插件</strong>的方法</p></blockquote><p>既然本身的 markdown 命令少，我们试试第三方插件<code>Markdown Formatting Assistant</code>，并且置顶插件的命令<code>Markdown Formatting Assistant: Open Command Selector</code>。</p><p>看看效果图，拥有更多的 markdown 语法集合，<em>缺点可能是需要点击多一次</em></p><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152144853-2120472543.gif" alt="image"></p><h2 id="实现插入-iframe-命令"><a href="#实现插入-iframe-命令" class="headerlink" title="实现插入 iframe 命令"></a>实现插入 iframe 命令</h2><p>插入 iframe，引用外部网站资源比如脑图、视频等，这个功能还是很常见的。对于 ob，实现逻辑很简单，只需要在文件中插入这么一段内容：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span></span></span><br><span class="line"><span class="tag">  <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">height</span>=<span class="string">&quot;500px&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">frameborder</span>=<span class="string">&quot;0&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">scrolling</span>=<span class="string">&quot;yes&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">src</span>=<span class="string">&quot;http://www.baidu.com&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure><p>然后修改链接、宽、高即可。</p><p>而插入的过程，我们可以使用第三方插件<code>Quick Add</code>，选择添加<code>Capture</code>，填写选项：<br><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152201265-1686349301.png" alt="image"></p><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152215403-679471545.png" alt="image"></p><p>最后输入<code>/</code>效果：</p><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152234175-722407236.png" alt="image"></p><h2 id="更统一的选项"><a href="#更统一的选项" class="headerlink" title="更统一的选项"></a>更统一的选项</h2><p>上面的效果，其实基本是够用了，但是希望有：<br><strong>1. 更统一的图标+ 命名</strong><br><strong>2. 还希望支持首字母拼音筛选</strong></p><p>这时候我们使用<code>Quick Add</code>的<code>Macro</code>选项，新增命令执行旧的命令即可，以改写<code>markdown Formatting Assistant</code> 命令为例:</p><ol><li>添加 Macro</li></ol><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152330775-579102861.gif" alt="image"></p><ol start="2"><li>添加命令</li></ol><p><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152359334-968778534.gif" alt="image"></p><p>如此往复，别名了好几个其他命令，最后的效果（_括号的字母为首字母拼音，方便搜索_）：<br><img src="https://img2023.cnblogs.com/blog/1364466/202212/1364466-20221226152417382-158678649.png" alt="image"></p><p>效果还是很理想的 🚀 ，后续修改添加删除也很容易！</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>利用斜杠命令 + 命令面板置顶 + <code>Quick Add</code>插入内容 + <code>Quick Add</code>别名命令，就可以根据自己习惯，实现定制化的斜杠命令！</p><p>😟 小遗憾：但目前还有一个 Quick Add 的前缀，但大部分目的达到了，也算是折中方案了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> obsidian </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git强制覆盖master</title>
       <link href="/2022/12/09/Git%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96master/"/>
       <url>/2022/12/09/Git%E5%BC%BA%E5%88%B6%E8%A6%86%E7%9B%96master/</url>
